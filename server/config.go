@@ -36,8 +36,8 @@ var (
 	CONST_LOG_LEVELDB_FILE_NAME = DATA_DIR + "/log.db"
 	CONST_STAT_FILE_NAME        = DATA_DIR + "/stat.json"
 	CONST_CONF_FILE_NAME        = CONF_DIR + "/cfg.json"
-	CONST_SERVER_CRT_FILE_NAME  = CONF_DIR + "/server.crt"
-	CONST_SERVER_KEY_FILE_NAME  = CONF_DIR + "/server.key"
+	CONST_SERVER_CRT_FILE_NAME  = CONF_DIR + "/cert.pem"
+	CONST_SERVER_KEY_FILE_NAME  = CONF_DIR + "/privkey.pem"
 	CONST_SEARCH_FILE_NAME      = DATA_DIR + "/search.txt"
 	CONST_UPLOAD_COUNTER_KEY    = "__CONST_UPLOAD_COUNTER_KEY__"
 	logConfigStr                = `
@@ -84,7 +84,7 @@ const (
 	cfgJson                        = `{
 	"绑定端号": "端口",
 	"addr": ":8080",
-	"是否开启https": "默认不开启，如需启开启，请在conf目录中增加证书文件 server.crt 私钥 文件 server.key",
+	"是否开启https": "默认不开启，如需启开启，请在conf目录中增加证书文件 server.crt 私钥 文件 server.key,同时将开启http3",
 	"enable_https": false,
 	"PeerID": "集群内唯一,请使用0-9的单字符，默认自动生成",
 	"peer_id": "%s",
@@ -199,7 +199,7 @@ type GlobalConfig struct {
 	PeerId               string   `json:"peer_id"`
 	SupportGroupManage   bool     `json:"support_group_manage"`
 	AdminIps             []string `json:"admin_ips"`
-	AdminKey 		     string   `json:"admin_key"`
+	AdminKey             string   `json:"admin_key"`
 	EnableMergeSmallFile bool     `json:"enable_merge_small_file"`
 	EnableMigrate        bool     `json:"enable_migrate"`
 	EnableDistinctFile   bool     `json:"enable_distinct_file"`
