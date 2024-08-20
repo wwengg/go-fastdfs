@@ -63,8 +63,8 @@ func InitServer() {
 	CONST_LOG_LEVELDB_FILE_NAME = DATA_DIR + "/log.db"
 	CONST_STAT_FILE_NAME = DATA_DIR + "/stat.json"
 	CONST_CONF_FILE_NAME = CONF_DIR + "/cfg.json"
-	CONST_SERVER_CRT_FILE_NAME = CONF_DIR + "/server.crt"
-	CONST_SERVER_KEY_FILE_NAME = CONF_DIR + "/server.key"
+	CONST_SERVER_CRT_FILE_NAME = CONF_DIR + "/cert.pem"
+	CONST_SERVER_KEY_FILE_NAME = CONF_DIR + "/privkey.pem"
 	CONST_SEARCH_FILE_NAME = DATA_DIR + "/search.txt"
 	FOLDERS = []string{DATA_DIR, STORE_DIR, CONF_DIR, STATIC_DIR}
 	logAccessConfigStr = strings.Replace(logAccessConfigStr, "{DOCKER_DIR}", DOCKER_DIR, -1)
