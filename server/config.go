@@ -177,6 +177,8 @@ type GlobalConfig struct {
 	Addr                 string   `json:"addr"`
 	Peers                []string `json:"peers"`
 	EnableHttps          bool     `json:"enable_https"`
+	CertPath             string   `json:"cert_path"`
+	PrivateKeyPath       string   `json:"private_key_path"`
 	Group                string   `json:"group"`
 	RenameFile           bool     `json:"rename_file"`
 	ShowDir              bool     `json:"show_dir"`

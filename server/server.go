@@ -254,40 +254,9 @@ func (c *Server) Start() {
 
 	fmt.Println("Listen on " + Config().Addr)
 	if Config().EnableHttps {
-		httpHandler := new(HttpHandler)
-		s := http3.Server{
-			Handler:     httpHandler,
-			Addr:        Config().Addr,
-			IdleTimeout: time.Duration(Config().IdleTimeout) * time.Second,
-		}
-		// 同时开启Tcp和Udp
-		hErr := make(chan error, 1)
-		qErr := make(chan error, 1)
-		go func() {
-			hErr <- http.ListenAndServeTLS(Config().Addr, CONST_SERVER_CRT_FILE_NAME, CONST_SERVER_KEY_FILE_NAME, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				s.SetQUICHeaders(w.Header())
-				httpHandler.ServeHTTP(w, r)
-			}))
-
-		}()
-		go func() {
-			qErr <- s.ListenAndServeTLS(CONST_SERVER_CRT_FILE_NAME, CONST_SERVER_KEY_FILE_NAME)
-		}()
-		select {
-		case err := <-hErr:
-			s.Close()
-			log.Error(err)
-			fmt.Println(err)
-			//slog.Ins().Error(err.Error())
-		case err := <-qErr:
-			// Cannot close the HTTP server or wait for requests to complete properly :/
-			//slog.Ins().Error(err.Error())
-			log.Error(err)
-			fmt.Println(err)
-		}
-		//err := http.ListenAndServeTLS(Config().Addr, CONST_SERVER_CRT_FILE_NAME, CONST_SERVER_KEY_FILE_NAME, new(HttpHandler))
-		//log.Error(err)
-		//fmt.Println(err)
+		err := http3.ListenAndServeTLS(Config().Addr, Config().CertPath, Config().PrivateKeyPath, new(HttpHandler))
+		log.Error(err)
+		fmt.Println(err)
 	} else {
 		srv := &http.Server{
 			Addr:              Config().Addr,
