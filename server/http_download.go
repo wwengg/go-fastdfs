@@ -266,7 +266,7 @@ func (c *Server) CheckDownloadAuth(w http.ResponseWriter, r *http.Request) (bool
 			return ok, nil
 		}
 	}
-	if Config().EnableGoogleAuth && !c.IsPeer(r) {
+	if Config().EnableGoogleAuthDownload && !c.IsPeer(r) {
 		fullpath = r.RequestURI[len(Config().Group)+2 : len(r.RequestURI)]
 		fullpath = strings.Split(fullpath, "?")[0] // just path
 		scene = strings.Split(fullpath, "/")[0]
